@@ -2,7 +2,7 @@ import "./upload.css";
 import React, { useState } from "react";
 import { Box, CircularProgress } from '@mui/material';
 import upload from "../assets/upload.svg";
-import frog from '../assets/frog-trash.svg';
+import frog from '../assets/garbage.png';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
 import axios from 'axios';
