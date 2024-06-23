@@ -10,7 +10,7 @@ const Landing = withAuthInfo((props) => {
   const navigate = useNavigate();
 
   const routeChange = () => {
-    let path = `carbon-footprint`;
+    let path = `upload`;
     navigate(path);
   };
 

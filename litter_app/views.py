@@ -13,10 +13,12 @@ from propelauth_django_rest_framework import init_auth
 import os
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 auth_url, api_key = os.getenv("PROPEL_AUTH_URL"), os.getenv("PROPEL_API_KEY")
 auth = init_auth(auth_url, api_key)
+
 
 @api_view(['POST'])
 @permission_classes([auth.IsUserAuthenticated])
@@ -53,13 +55,17 @@ def create_trash_post(request):
 
     serializer = PostCreationResponseSerializer({'post_id': trash_post.id,
                                                  # 'gemini_response': gemini_response,
-                                                'claude_response': claude_response
+                                                 'claude_response': claude_response
                                                  })
     return JsonResponse(serializer.data, safe=False, status=status.HTTP_201_CREATED)
+
 
 @api_view(['PUT'])
 @permission_classes([auth.IsUserAuthenticated])
 def update_trash_post(request, post_id):
+    logger.error("Updating trash post")
+    logger.error(post_id)
+    logger.error(request.propelauth_user)
     try:
         trash_post = TrashPost.objects.get(pk=post_id, user_id=request.propelauth_user.user_id)
     except TrashPost.DoesNotExist:

@@ -70,7 +70,7 @@ const Cleaning = withAuthInfo((props) => {
           <form onSubmit={handleSubmit} className='form-1'>
             <div className='right-header-1'>
 
-               {post && <img className="prev-uploaded-pic" src={`http://127.0.0.1:5001/${post.image_before_url}`}></img>}
+               {post && <img className="prev-uploaded-pic" src={`http://localhost:8000/${post.image_before_url}`}></img>}
                <div>
                 <h4>Before</h4>
                </div>

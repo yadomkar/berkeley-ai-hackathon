@@ -68,7 +68,7 @@ const Upload = withAuthInfo((props) => {
      axios.post('http://localhost:8000/trash-posts/', formData, config).then(response => {
       console.log("response from server", response.data);
       setTrashId(response.data.post_id);
-      setAnalysisResult(response.data.gemini_response); // Update the state to trigger TextToSpeech
+      setAnalysisResult(response.data.claude_response); // Update the state to trigger TextToSpeech
     })
     .catch(error => {
       console.error('Error uploading image:', error);
