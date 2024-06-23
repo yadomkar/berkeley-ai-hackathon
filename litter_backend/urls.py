@@ -24,4 +24,6 @@ urlpatterns = [
     path('trash-posts/<int:post_id>/', views.get_trash_post, name='get_trash_post_detail'),
     path('trash-posts/clean/<int:post_id>', views.update_trash_post, name='update_trash_post'),
     path('trash-posts/list/', views.read_trash_posts, name='read_trash_posts'),
+    path('rewards/', views.get_rewards, name='get_rewards'),
+    path('locations/', views.get_locations, name='get_locations'),
 ]

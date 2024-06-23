@@ -1,7 +1,8 @@
 from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
-from .models import TrashPost
-from .serializers import TrashPostPublicSerializer, PostCreationResponseSerializer
+from .models import TrashPost, Rewards
+from .serializers import TrashPostPublicSerializer, PostCreationResponseSerializer, RewardDetailsSerializer, \
+    LocationSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -11,6 +12,7 @@ from .gemini import GeminiAPI
 from .claude import ClaudeAPI
 from propelauth_django_rest_framework import init_auth
 import os
+import re
 
 import logging
 
@@ -52,12 +54,39 @@ def create_trash_post(request):
         # reward_points=gemini_response.get('reward', 0)
         reward_points=claude_response.get('reward', 0)
     )
+    # logger.error("""
+    #
+    #
+    # -----------------------
+    #
+    #
+    # """)
+    # logger.error(request.propelauth_user.__dict__)
+    update_or_create_reward_points(request.propelauth_user.user_id, remove_email_extension(request.propelauth_user.email),
+                                   trash_post.reward_points)
 
     serializer = PostCreationResponseSerializer({'post_id': trash_post.id,
                                                  # 'gemini_response': gemini_response,
                                                  'claude_response': claude_response
                                                  })
     return JsonResponse(serializer.data, safe=False, status=status.HTTP_201_CREATED)
+
+
+def update_or_create_reward_points(user_id, username, points):
+    try:
+        reward = Rewards.objects.get(user_id=user_id)
+        reward.points += points
+        reward.username = username
+        reward.save()
+    except Rewards.DoesNotExist:
+        Rewards.objects.create(user_id=user_id, username=username, points=points)
+
+
+def remove_email_extension(email):
+    print("Email ", email)
+    pattern = r"@\S+"
+    cleaned_email = re.sub(pattern, "", email)
+    return cleaned_email
 
 
 @api_view(['PUT'])
@@ -101,3 +130,16 @@ def get_trash_post(request, post_id):
         return JsonResponse(serializer.data, safe=False)
     except TrashPost.DoesNotExist:
         return JsonResponse({'error': 'Post not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+def get_rewards(request):
+    serializer = RewardDetailsSerializer(Rewards.objects.all(), many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def get_locations(request):
+    trash_posts = TrashPost.objects.distinct('latitude', 'longitude').all()
+    serializer = LocationSerializer(trash_posts, many=True)
+    return JsonResponse(serializer.data, safe=False)

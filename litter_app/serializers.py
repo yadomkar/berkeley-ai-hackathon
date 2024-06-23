@@ -31,3 +31,7 @@ class PostCreationResponseSerializer(serializers.Serializer):
     post_id = serializers.IntegerField()
     # gemini_response = serializers.DictField()
     claude_response = serializers.DictField()
+
+class LocationSerializer(serializers.Serializer):
+    latitude = serializers.FloatField()
+    longitude = serializers.FloatField()

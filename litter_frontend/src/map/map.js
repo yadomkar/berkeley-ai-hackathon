@@ -27,7 +27,7 @@ const Map = withAuthInfo((props) =>{
       }
 
       navigator.geolocation.getCurrentPosition(success);
-      axios.get(`http://localhost:8000/locations`, config)
+      axios.get(`http://localhost:8000/locations/`, config)
       .then(response => {
         console.log("response from server", response.data);
         setStops(response.data);
