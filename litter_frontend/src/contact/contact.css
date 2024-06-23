@@ -1,0 +1,8 @@
+.contact-container {
+   display: flex;
+   flex-direction: column;
+   display: flex;
+   font-family: 'Open Sans';
+   margin-left: 20px;
+   margin-right: 20px;
+}

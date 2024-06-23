@@ -1,0 +1,95 @@
+.upload-container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: space-around;
+   margin-top: 60px;
+   font-family: "Open Sans";
+ }
+ input[type="file"] {
+   display: none;
+ }
+
+ .thank-clean {
+  margin-left: 30px;
+
+ }
+ .please-upload {
+  margin-left: 30px;
+  margin-bottom: 60px;
+ }
+ 
+ .form-1 {
+   align-items: center;
+   display: flex;
+   justify-content: center;
+ }
+
+ .before-image {
+  width: 100px;
+  height: 100px;
+ }
+ .right-header-1 {
+   width: 40vw;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+ }
+
+ #right-side-clean-1 {
+   width: 40vw;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin: auto;
+ }
+ 
+ .custom-file-upload {
+   border: 1px solid #ccc;
+   background-color: #d9d9d9;
+   border-radius: 20px;
+   display: inline-block;
+   padding: 60px 0px;
+   height: 200px;
+   cursor: pointer;
+   width: 50vw;
+ }
+ 
+ .custom-file-upload {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+ 
+ 
+ 
+ .upload-pic {
+   width: 100px;
+   height: 100px;
+ }
+ 
+ .upload-header {
+   font-size: 40px;
+   font-weight: 700;
+   margin-bottom: 10px;
+ }
+ 
+ .chosen-pic {
+   width: 40vw;
+   height: 400px;
+ }
+
+ .prev-uploaded-pic {
+   height: 322px;
+   border-radius: 20px;
+
+ }
+ 
+ .upload-desc {
+   font-size: 25px;
+ }
+ 
+ 
+ 

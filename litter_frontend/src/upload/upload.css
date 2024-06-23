@@ -1,0 +1,139 @@
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-around;
+  margin-top: 60px;
+  font-family: "Open Sans";
+  width: 100%;
+}
+input[type="file"] {
+  display: none;
+}
+
+.form {
+  align-items: space-around;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.right-header {
+   margin-left: 50px;
+  width: 35vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  background-color: #d9d9d9;
+  border-radius: 20px;
+  display: inline-block;
+  padding: 60px 0px;
+  height: 200px;
+  cursor: pointer;
+  width: 40vw;
+}
+
+.custom-file-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.upload-pic {
+  width: 100px;
+  height: 100px;
+}
+
+.upload-header {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.chosen-pic {
+  width: 40vw;
+  height: 400px;
+}
+
+.upload-desc {
+  font-size: 25px;
+  width: 100%;
+
+}
+
+.user-location {
+   margin-top: 20px;
+   width: 100%;
+}
+
+.upload-confirm {
+   justify-self: flex-end;
+   margin-top: auto;
+   background-color: #373F51;
+   color: white;
+   border: none;
+   padding: 20px 10px;
+   width: 200px;
+   border-radius: 20px;
+   font-weight: 600;
+   font-size: 18px;
+   align-self: flex-start;
+}
+
+#statistics {
+   margin-top: 60px;
+   margin-left: 5%;
+  display: flex;
+  padding-bottom: 60px;
+}
+
+
+.buttons-bar {
+   display: flex;
+   gap: 20px;
+   align-self: flex-start;
+}
+
+.yes-button {
+   padding: 10px 50px;
+   border-radius: 10px;
+
+   background-color: #73903F;
+   border: none;
+   color: white;
+   font-weight: bold;
+   font-size: 20px;
+}
+
+.question-cleaning {
+   margin-top: 50px;
+   margin-bottom: 60px;
+   font-style: italic;
+   font-weight: bold;
+   font-size: 20px;
+   align-self: flex-start;
+}
+
+.no-button {
+   padding: 10px 50px;
+   border-radius: 10px;
+   background-color: #E8655F;
+   border: none;
+   color: white;
+   font-weight: bold;
+   font-size: 20px;
+}
+
+.frog-trash {
+   margin-left: auto;
+   justify-self: flex-end;
+   align-self: center;
+   margin-right: 5%;
+}
