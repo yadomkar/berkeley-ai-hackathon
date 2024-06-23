@@ -33,8 +33,7 @@ const Cleaning = withAuthInfo((props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!selectedFile) return;
-    axios.get(`http://localhost:8000/trash-posts/${id}`, config)
+    axios.put(`http://localhost:8000/trash-posts/clean/${id}/`, config)
     .then(response => {
       console.log("response from server", response.data);
       setPostResult(response.data);
@@ -52,7 +51,7 @@ const Cleaning = withAuthInfo((props) => {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/trash-posts/${id}`, config)
+    axios.get(`http://localhost:8000/trash-posts/${id}/`, config)
     .then(response => {
       console.log("response from server", response.data);
       setPostResult(response.data);
@@ -70,7 +69,7 @@ const Cleaning = withAuthInfo((props) => {
           <form onSubmit={handleSubmit} className='form-1'>
             <div className='right-header-1'>
 
-               {post && <img className="prev-uploaded-pic" src={`http://localhost:8000/${post.image_before_url}`}></img>}
+               {post && <img className="prev-uploaded-pic" src={`http://localhost:8000/static/${post.image_before_url}`}></img>}
                <div>
                 <h4>Before</h4>
                </div>
