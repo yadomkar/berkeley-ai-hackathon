@@ -18,7 +18,7 @@ const Map = withAuthInfo((props) =>{
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [stops, setStops] = useState([]);
    const [error, setError] = useState(null);
-   const markers = [{latitude: 38.543770, longitude: -121.761658}, {latitude: 40.543770, longitude: -123.761658}]
+   const markers = [{latitude: 37.871960, longitude: -122.259094}, {latitude: 37.7749, longitude: -122.4194}]
 
     useEffect(() => {
       if (!navigator.geolocation) {
