@@ -39,10 +39,13 @@ def create_trash_post(request):
     filename = fs.save(filename, image)
 
     file_path = fs.url(filename)
-    # gemini_api = GeminiAPI(file_path, latitude, longitude)
+    gemini_api = GeminiAPI(file_path, latitude, longitude)
     claude_api = ClaudeAPI(file_path, latitude, longitude)
     # gemini_response = gemini_api.generate_content()
-    claude_response = claude_api.generate_content()
+    try:
+        claude_response = claude_api.generate_content()
+    except Exception as _:
+        claude_response = gemini_api.generate_content()
     logger.error(claude_response)
     trash_post = TrashPost.objects.create(
         user_id=request.propelauth_user.user_id,
@@ -63,7 +66,7 @@ def create_trash_post(request):
     # """)
     # logger.error(request.propelauth_user.__dict__)
     update_or_create_reward_points(request.propelauth_user.user_id, remove_email_extension(request.propelauth_user.email),
-                                   trash_post.reward_points)
+                                   int(trash_post.reward_points))
 
     serializer = PostCreationResponseSerializer({'post_id': trash_post.id,
                                                  # 'gemini_response': gemini_response,

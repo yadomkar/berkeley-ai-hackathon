@@ -28,6 +28,7 @@ class ClaudeAPI:
             you should identify location as par latitude and longitude and give brief summary of surrounding location and how important it to be clean.
             you should also identify nearby landmarks relevant to waste disposal (e.g., recycling centers, waste facilities), assess the environmental impact, and estimate the number of people required for cleanup based on general government standards.
             Additionally, you should provide actionable cleaning suggestions tailored to the type of waste identified, complete with safety tips and presented in a step-by-step guide format. These suggestions are designed for individuals to perform immediately if needed
+            You must give the response in a very strict JSON format as provided in the prompt.
         """
 
         self.prompt = '''
@@ -46,7 +47,7 @@ class ClaudeAPI:
         "impact": A very short describtion of impact of waste on location & type & quantity of waste(less than 20 words),
         "impact_level": A string that rate impact of waste on environment based on surronding such as 'Harmful', 'Moderately Harmful','Less Harmful', 'Potentially Beneficial',
         "emergency": Identify Priority level like if is a 'cricital','High','Medium','Low','Routine' based on surronding, type of waste & level of waste,
-        "reward": Give a reward score based on impact ,impact_level,emergency out of 100(eg 50),
+        "reward": Give a reward score based on impact ,impact_level,emergency out of 100(eg 50), based on reduction of global carbon footprint.
         "Level_of_waste":  A string that rates the level of waste present such as 'low', 'mid', or 'high'. If no waste is detected, set this to 'none',
         "Nearby_landmarks": Find nearby landmarks based on location relevant to waste disposal (e.g., recycling centers, waste facilities) give response as list of landmarks with estimated distance like ['name':'','distance':'  in miles']. If not found set this to ['none'],
         "people_required": estimated the exact number of people required for cleanup waste based on general government standards,(eg. 3, 4 etc). If not needed set this to 0,
@@ -101,7 +102,11 @@ class ClaudeAPI:
                                        aws_access_key_id=self.access_key, aws_secret_access_key=self.secret_key)
         response = bedrock_runtime.invoke_model(body=self.body, modelId='anthropic.claude-3-haiku-20240307-v1:0',
                                                 accept="application/json", contentType="application/json")
-        response_body = json.loads(response.get('body').read())
+        # print(response.get('body').read())
+        cleaned_response = response.get('body').read()
+        # cleaned_response = cleaned_response.replace("```json", "").replace("```", "").replace("\\n", "\n").replace("\\", "").strip()
+        # print(cleaned_response)
+        response_body = json.loads(cleaned_response)
         result = response_body.get('content', '')
         data = json.loads(result[0].get('text', ''))
         # print(result[0].get('text', ''))
