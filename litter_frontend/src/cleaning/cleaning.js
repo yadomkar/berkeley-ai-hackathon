@@ -34,7 +34,7 @@ const Cleaning = withAuthInfo((props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!selectedFile) return;
-    axios.get(`http://localhost:8080/trash-posts/${id}`, config)
+    axios.get(`http://localhost:8000/trash-posts/${id}`, config)
     .then(response => {
       console.log("response from server", response.data);
       setPostResult(response.data);
@@ -52,7 +52,7 @@ const Cleaning = withAuthInfo((props) => {
   };
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:5001/trash-posts/${id}`, config)
+    axios.get(`http://localhost:8000/trash-posts/${id}`, config)
     .then(response => {
       console.log("response from server", response.data);
       setPostResult(response.data);
