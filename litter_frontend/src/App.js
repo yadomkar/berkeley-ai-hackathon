@@ -25,7 +25,7 @@ const App = withAuthInfo(({isLoggedIn}) => {
           <Route path="/map" element={<Map />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/carbon-tracker" element={<CarbonFootprintTracker />} />
+          <Route path="/carbon-calculator" element={<CarbonFootprintTracker />} />
         </Routes>
       </div>
     </Router>

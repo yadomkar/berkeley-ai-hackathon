@@ -72,9 +72,9 @@ const Navbar = withAuthInfo((props) => {
                 <ListItemText primaryTypographyProps={{ fontFamily: 'Lora' }} primary="Waste Map" />
               </ListItem>
             </Link>
-            <Link to="/carbon-tracker">
-              <ListItem button key="Carbon Tracker">
-                <ListItemText primaryTypographyProps={{ fontFamily: 'Lora' }} primary="Carbon Footprint Tracker" />
+            <Link to="/carbon-calculator">
+              <ListItem button key="Carbon Calculator">
+                <ListItemText primaryTypographyProps={{ fontFamily: 'Lora' }} primary="Carbon Footprint Calculator" />
               </ListItem>
             </Link>
             <Link to='/leaderboard'>
