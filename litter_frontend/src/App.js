@@ -8,6 +8,7 @@ import Contact from "./contact/contact";
 import Map from "./map/map";
 import { useLogoutFunction, useRedirectFunctions, withAuthInfo } from '@propelauth/react';
 import Leaderboard from "./leaderboard/leaderboard";
+import CarbonFootprintTracker from "./CarbonFootprintTracker/carbonFootprintTracker";
 
 
 const App = withAuthInfo(({isLoggedIn}) => {
@@ -24,6 +25,7 @@ const App = withAuthInfo(({isLoggedIn}) => {
           <Route path="/map" element={<Map />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/carbon-tracker" element={<CarbonFootprintTracker />} />
         </Routes>
       </div>
     </Router>
