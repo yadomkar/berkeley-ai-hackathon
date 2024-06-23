@@ -7,9 +7,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 from datetime import datetime
-from .gemini import GeminiAPI  # Assuming GeminiAPI is adapted for Django
+from .gemini import GeminiAPI
+from .claude import ClaudeAPI
 from propelauth_django_rest_framework import init_auth
 import os
+
+import logging
+logger = logging.getLogger(__name__)
 
 auth_url, api_key = os.getenv("PROPEL_AUTH_URL"), os.getenv("PROPEL_API_KEY")
 auth = init_auth(auth_url, api_key)
@@ -31,19 +35,26 @@ def create_trash_post(request):
     filename = fs.save(filename, image)
 
     file_path = fs.url(filename)
-    gemini_api = GeminiAPI(file_path, latitude, longitude)
-    gemini_response = gemini_api.generate_content()
-
+    # gemini_api = GeminiAPI(file_path, latitude, longitude)
+    claude_api = ClaudeAPI(file_path, latitude, longitude)
+    # gemini_response = gemini_api.generate_content()
+    claude_response = claude_api.generate_content()
+    logger.error(claude_response)
     trash_post = TrashPost.objects.create(
         user_id=request.propelauth_user.user_id,
         image_before_url=file_path,
-        details=gemini_response,
+        # details=gemini_response,
+        details=claude_response,
         latitude=latitude,
         longitude=longitude,
-        reward_points=gemini_response.get('reward', 0)
+        # reward_points=gemini_response.get('reward', 0)
+        reward_points=claude_response.get('reward', 0)
     )
 
-    serializer = PostCreationResponseSerializer({'post_id': trash_post.id, 'gemini_response': gemini_response})
+    serializer = PostCreationResponseSerializer({'post_id': trash_post.id,
+                                                 # 'gemini_response': gemini_response,
+                                                'claude_response': claude_response
+                                                 })
     return JsonResponse(serializer.data, safe=False, status=status.HTTP_201_CREATED)
 
 @api_view(['PUT'])

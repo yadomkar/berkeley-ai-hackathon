@@ -29,4 +29,5 @@ class RewardDetailsSerializer(serializers.ModelSerializer):
 
 class PostCreationResponseSerializer(serializers.Serializer):
     post_id = serializers.IntegerField()
-    gemini_response = serializers.DictField()
+    # gemini_response = serializers.DictField()
+    claude_response = serializers.DictField()
