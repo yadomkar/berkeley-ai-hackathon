@@ -5,7 +5,7 @@ from django.db.models import JSONField
 
 
 class TrashPost(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.CharField(null=False)
     image_before_url = models.URLField()
     is_cleaned = models.BooleanField(default=False)
     details = JSONField()
@@ -15,6 +15,6 @@ class TrashPost(models.Model):
 
 
 class Rewards(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.CharField(null=False)
     username = models.CharField(max_length=255)
     points = models.IntegerField(default=0)

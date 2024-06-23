@@ -11,7 +11,7 @@ class TrashPostCreateSerializer(serializers.ModelSerializer):
 class TrashPostPublicSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrashPost
-        fields = ['id', 'image_before_url', 'is_cleaned', 'details', 'user', 'reward_points']
+        fields = ['id', 'image_before_url', 'is_cleaned', 'details', 'user_id', 'reward_points']
         depth = 1  # To include details of related objects, adjust as necessary
 
 

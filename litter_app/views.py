@@ -8,14 +8,19 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 from datetime import datetime
 from .gemini import GeminiAPI  # Assuming GeminiAPI is adapted for Django
+from propelauth_django_rest_framework import init_auth
+import os
+
+auth_url, api_key = os.getenv("PROPEL_AUTH_URL"), os.getenv("PROPEL_API_KEY")
+auth = init_auth(auth_url, api_key)
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([auth.IsUserAuthenticated])
 def create_trash_post(request):
     parser_classes = (MultiPartParser, FormParser)
     image = request.FILES.get('image')
-    latitude = request.data.get('latitude')
-    longitude = request.data.get('longitude')
+    latitude = float(request.data.get('latitude'))
+    longitude = float(request.data.get('longitude'))
 
     if not image or not latitude or not longitude:
         return JsonResponse({'error': 'Missing data'}, status=status.HTTP_400_BAD_REQUEST)
@@ -30,7 +35,7 @@ def create_trash_post(request):
     gemini_response = gemini_api.generate_content()
 
     trash_post = TrashPost.objects.create(
-        user=request.user,
+        user_id=request.propelauth_user.user_id,
         image_before_url=file_path,
         details=gemini_response,
         latitude=latitude,
@@ -42,10 +47,10 @@ def create_trash_post(request):
     return JsonResponse(serializer.data, safe=False, status=status.HTTP_201_CREATED)
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated])
+@permission_classes([auth.IsUserAuthenticated])
 def update_trash_post(request, post_id):
     try:
-        trash_post = TrashPost.objects.get(pk=post_id, user=request.user)
+        trash_post = TrashPost.objects.get(pk=post_id, user_id=request.propelauth_user.user_id)
     except TrashPost.DoesNotExist:
         return JsonResponse({'error': 'Post not found'}, status=status.HTTP_404_NOT_FOUND)
 
@@ -55,24 +60,26 @@ def update_trash_post(request, post_id):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([auth.IsUserAuthenticated])
 def read_trash_posts(request):
+    print('we in here')
     is_cleaned = request.query_params.get('is_cleaned')
     if is_cleaned is not None:
         is_cleaned = is_cleaned.lower() in ['true', '1']
-        trash_posts = TrashPost.objects.filter(is_cleaned=is_cleaned, user=request.user)
+        trash_posts = TrashPost.objects.filter(is_cleaned=is_cleaned, user_id=request.propelauth_user.user_id)
     else:
-        trash_posts = TrashPost.objects.filter(user=request.user)
-
+        trash_posts = TrashPost.objects.filter(user_id=request.propelauth_user.user_id)
+    print('serializing')
     serializer = TrashPostPublicSerializer(trash_posts, many=True)
+    print('returning')
     return JsonResponse(serializer.data, safe=False)
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([auth.IsUserAuthenticated])
 def get_trash_post(request, post_id):
     try:
-        trash_post = TrashPost.objects.get(pk=post_id, user=request.user)
+        trash_post = TrashPost.objects.get(pk=post_id, user_id=request.propelauth_user.user_id)
         serializer = TrashPostPublicSerializer(trash_post)
         return JsonResponse(serializer.data, safe=False)
     except TrashPost.DoesNotExist:

@@ -6,6 +6,7 @@ import PIL.Image
 import os
 from dotenv import load_dotenv
 import json
+from urllib.parse import unquote
 
 load_dotenv()
 
@@ -95,8 +96,8 @@ class GeminiAPI:
             system_instruction=self.system_instruction,
             safety_settings=self.safety_settings
         )
-
-        input_img = PIL.Image.open(self.image_path)
+        self.image_path = unquote(self.image_path)
+        input_img = PIL.Image.open('public/' + self.image_path)
 
         response = model.generate_content([self.prompt, input_img])
         cleaned_text = response.text.replace("```json", "").replace("```", "").strip()
@@ -119,8 +120,10 @@ class GeminiAPI:
         return decimal_degrees
 
     def image_coordinates(self, image_path):
+        # Decode URL-encoded file path
+        image_path = unquote(self.image_path)
 
-        with open(image_path, 'rb') as src:
+        with open('public/' + image_path, 'rb') as src:
             img = Image(src)
         if img.has_exif:
             try:
