@@ -37,7 +37,7 @@ const Navbar = withAuthInfo((props) => {
     }}>
       <Link to="/" style={{ display: 'flex', alignItems: 'center', marginLeft: 2 }}>
         <Typography sx={{ fontSize: 45, fontWeight: 'bold', marginRight: 2 }} color="inherit">
-        ClimaGuard
+          ClimaGuard
         </Typography>
         <Box component="img" src={logo} alt="logo" sx={{ width: 45, height: 45 }} />
       </Link>
@@ -72,12 +72,17 @@ const Navbar = withAuthInfo((props) => {
                 <ListItemText primaryTypographyProps={{ fontFamily: 'Lora' }} primary="Waste Map" />
               </ListItem>
             </Link>
+            <Link to="/carbon-tracker">
+              <ListItem button key="Carbon Tracker">
+                <ListItemText primaryTypographyProps={{ fontFamily: 'Lora' }} primary="Carbon Footprint Tracker" />
+              </ListItem>
+            </Link>
             <Link to='/leaderboard'>
               <ListItem button key="Leaderboards">
                 <ListItemText primaryTypographyProps={{ fontFamily: 'Lora' }} primary="Leaderboards" />
               </ListItem>
             </Link>
-            <ListItem button key="Logout" onClick={() => logoutFn()}>
+            <ListItem button key="Logout" onClick={logoutFn}>
               <ListItemText primaryTypographyProps={{ fontFamily: 'Lora' }} primary="Logout" />
             </ListItem>
           </List>

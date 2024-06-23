@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import "./cleaning.css";
 import upload from "../assets/upload.svg";
-import frog from '../assets/frog-trash.svg';
 import { useNavigate, useParams } from 'react-router-dom';
 import trash from '../assets/dummy-trash.jpeg';
 import axios from 'axios';

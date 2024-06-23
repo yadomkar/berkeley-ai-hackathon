@@ -1,7 +1,6 @@
 import GoogleMapReact from 'google-map-react';
 import React, { useState } from "react";
 import upload from "../assets/upload.svg";
-import frog from '../assets/frog-trash.svg';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
 import axios from 'axios';
