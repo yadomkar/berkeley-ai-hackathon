@@ -49,7 +49,7 @@ const Navbar = withAuthInfo((props) => {
         open={isDrawerOpen}
         onClose={toggleDrawer}
         PaperProps={{
-          sx: { width: 300 }
+          sx: { width: 300, backgroundColor: '#e0f7fa' } // Background color for the Drawer
         }}
       >
         <Box

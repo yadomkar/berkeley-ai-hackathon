@@ -1,3 +1,4 @@
+import { createTheme } from '@mui/material/styles';
 import React, { useState, useEffect } from "react";
 import {
   AppBar,
@@ -17,8 +18,22 @@ import trash from '../assets/dummy-trash.jpeg';
 import axios from 'axios';
 import { useLogoutFunction, useRedirectFunctions, withAuthInfo } from '@propelauth/react';
 
-
-
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#0277bd', // Primary color
+    },
+    secondary: {
+      main: '#80d8ff', // Secondary color
+    },
+    text: {
+      primary: '#01579b', // Text color
+    },
+    background: {
+      default: '#e0f7fa', // Background color
+    },
+  },
+});
 
 const Cleaning = withAuthInfo((props) => {
   const { id } = useParams();

@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Button } from '@mui/material';
 import { withAuthInfo } from '@propelauth/react';
-import frog from '../assets/frog-landing.svg';
+import frog from '../assets/landing.jpg';
 import topCircles from '../assets/upper-circles.svg';
 import lowerCircles from '../assets/lower-circles.svg';
 
@@ -17,7 +17,7 @@ const Landing = withAuthInfo((props) => {
   console.log(props.user.email);
 
   return (
-    <Box sx={{ display: 'flex', fontFamily: 'Open Sans', height: '100vh' }}>
+    <Box sx={{ display: 'flex', fontFamily: 'Open Sans', height: '100vh', backgroundColor: '#e0f7fa'}}>
       <Box sx={{
         flexGrow: 1,
         display: 'flex',
@@ -29,8 +29,8 @@ const Landing = withAuthInfo((props) => {
         backgroundSize: '25% auto'  // Adjusts the size of both images
       }}>
         <Box sx={{ width: '80%', ml: '10%' }}>
-          <Typography variant="h3" component="h1" fontWeight="bold" mb={1}>
-            Reduce Your Carbon Footprint
+          <Typography variant="h3" component="h1" fontWeight="bold" mb={1} color="#01579b">
+            Reduce Neighbourhood Carbon Footprint
           </Typography>
           <Typography variant="h5" component="p">
             ClimaGuard encourages you to report and manage trash in your community. Each report contributes to our collective understanding of waste impact and helps reduce our carbon footprint. Start today and make a difference for a cleaner, greener tomorrow.

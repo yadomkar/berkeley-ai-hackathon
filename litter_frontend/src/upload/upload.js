@@ -1,5 +1,6 @@
 import "./upload.css";
 import React, { useState } from "react";
+import { Box, CircularProgress } from '@mui/material';
 import upload from "../assets/upload.svg";
 import frog from '../assets/frog-trash.svg';
 import { useNavigate } from 'react-router-dom';
@@ -69,18 +70,18 @@ const Upload = withAuthInfo((props) => {
       console.log("response from server", response.data);
       setTrashId(response.data.post_id);
       setAnalysisResult(response.data.claude_response); // Update the state to trigger TextToSpeech
+      setLoading(false);
     })
     .catch(error => {
       console.error('Error uploading image:', error);
       setAnalysisResult(); // Set error message for TTS
+      setLoading(false);
     });
     
      
    } catch (error) {
      console.error("Error analyzing image:", error);
    }
- 
-   setLoading(false);
  };
 
   return (
@@ -191,7 +192,18 @@ const Upload = withAuthInfo((props) => {
          </div>
         </div>
       )}
-      {loading && <p>Loading...</p>}
+      {loading && (
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            // alignItems: 'center', 
+            height: '100vh' // Adjust as needed
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      )}
    
     </div>
   );
