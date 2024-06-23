@@ -65,7 +65,7 @@ const Upload = withAuthInfo((props) => {
    };
  
    try {
-     axios.post('http://127.0.0.1:5001/trash-posts/', formData, config).then(response => {
+     axios.post('http://localhost:8000/trash-posts/', formData, config).then(response => {
       console.log("response from server", response.data);
       setTrashId(response.data.post_id);
       setAnalysisResult(response.data.gemini_response); // Update the state to trigger TextToSpeech

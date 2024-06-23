@@ -16,7 +16,7 @@ const Leaderboard = withAuthInfo((props) => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://127.0.0.1:5001/rewards`, config)
+    axios.get(`http://localhost:8000/rewards`, config)
     .then(response => {
       console.log("response from server", response.data);
       setUsers(response.data);
